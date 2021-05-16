@@ -1,9 +1,92 @@
-html {
-    line-height: 1.15; 
-    -webkit-text-size-adjust: 100%; 
+body{
+    font-family: 'Roboto', sans-serif;
   }
 
-  h1 {
-    font-size: 2em;
-    margin: 0.67em 0;
+  ol{
+    padding:0;
   }
+
+  /* Section Specific Styles */
+
+  #highScores{
+    position:absolute;
+    top:16px;
+    left:40px;
+  }
+
+  #timer{
+    position:absolute;
+    top:0;
+    right:40px;
+  }
+
+  #intro{
+    text-align:center;
+    margin:0 auto;
+    max-width:50%;
+    margin-top:200px;
+  }
+
+
+  button{
+    background-color:#b9f1ab;
+    color:white;
+    border: none;
+    padding:5px;
+    border-radius: 5px;
+    cursor:pointer;
+  }
+
+  #intro button:hover{
+    background-color: #b9f1ab;
+  }
+
+
+  #quizHolder{
+    margin:0 auto;
+    max-width:50%;
+    margin-top:200px;
+  }
+
+  #quizHolder #title{
+    font-weight:700;
+  }
+
+  #quizHolder ol{
+    list-style-type:none;
+  }
+
+  #quizHolder ol li div{
+    background-color:#b9f1ab;
+    border-radius:5px;
+    color:white;
+    margin: 3px 0;
+    padding: 5px 5px ;
+    cursor:pointer;
+    display:inline-block;
+  }
+
+  #quizHolder ol li div:hover{
+    background-color: #b9f1ab;
+  }
+
+  #finish{
+    margin:0 auto;
+    max-width:50%;
+    margin-top:200px;
+  }
+
+  @media only screen and (min-width: 768px) {
+  #finish #records{
+    display:flex;
+    align-items: center;
+  }
+
+  #finish #records input, #finish #records button{
+    margin-left:10px;
+  }
+  }
+
+  .hide{
+    display:none;
+  } 
