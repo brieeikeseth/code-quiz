@@ -25,9 +25,11 @@ THEN I can save my initials and score
 
 ## Project Features 
 -A Start Quiz button, which starts a timer
+
 -QuestionS varies about 15 seconds each
 
 -HTML page:
+
 -Summary of correct answers
 
 -Input for score recoring 
@@ -39,16 +41,24 @@ THEN I can save my initials and score
 -Clear button resets the page
 
 -An HTML page that features questions, and multiple choice answers
+
 -If questions are answered incorrectly, time is deducted off remaining time
 
 ## Psuedo Code 
 -Create a timer attached to a button with a starting value of 0
+
 -When countdown starts, start quiz
+
 -Start Quiz will be on appended page
+
 -When user selects the right answer, textcontent "Correct!"
+
 -When user selects the wronng answer, textcontent "Wrong!"
+
 -Final score will keep track of correct answers
+
 -Left over time will be deducted from final score
+
 -Retrieved highscores and local storage
 
 # The Output 
