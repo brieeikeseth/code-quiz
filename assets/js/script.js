@@ -1,28 +1,28 @@
 document.addEventListener('DOMContentLoaded', (event) => {
 
-	//////////////////// SET INITIAL VARIABLES AND SETUP ARRAY/LOCAL STORAGE DATABASE ////////////////////
+	/* Intial  Setup Array/Local and Variables Storage Database */
 
-	//1. Setting intial required variables 
+	/* Intial Required Variables */
 	const initialTime = 75;
 	let time = 75;
 	let score = 0;
 	let qCount = 0;
 	let timeset;
-	let answers = document.querySelectorAll('#quizHolder button');
+	let answers = document.querySelectorAll('quizHolder button');
 
-	//2. Sets array then if local storage exists it populates it into the array of records.
+	/* Local Storage Exists it Populates it into the Array of Records. */
 	let recordsArray = [];
-	// Retrieve data if it exists or keep empty array otherwise.
+
+	/* Retrieve Data if it Exists/ Keep Empty Array Otherwise. */
 	(localStorage.getItem('recordsArray')) ? recordsArray = JSON.parse(localStorage.getItem('recordsArray')): recordsArray = [];
 
-	//////////////////// FUNCTIONS MADE TO REDUCE REPEATED CODE ////////////////////
+    /* Reduce Repeated Code */
 
-	// FUNCTION to more quickly call elements less typing means less chance for errors
 	let queryElement = (element) => {
 		return document.querySelector(element);
 	}
 
-	// FUNCTION to hide all sections then unhide the one provided by the parameter
+	/* Hide Sections then Unhide */
 	let onlyDisplaySection = (element) => {
 		let sections = document.querySelectorAll("section");
 		Array.from(sections).forEach((userItem) => {
@@ -31,16 +31,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
 		queryElement(element).classList.remove('hide');
 	}
 
-	// FUNCTION to reset HTML display for the score
+	/* Reset HTML Display for the Score */
 	let recordsHtmlReset = () => {
-		queryElement('#highScores div').innerHTML = "";
+		queryElement('highScores div').innerHTML = "";
 		var i = 1;
 		recordsArray.sort((a, b) => b.score - a.score);
 		Array.from(recordsArray).forEach(check =>
 		{
 			var scores = document.createElement("div");
 			scores.innerHTML = i + ". " + check.initialRecord + " - " + check.score;
-			queryElement('#highScores div').appendChild(scores);
+			queryElement('highScores div').appendChild(scores);
 			i = i + 1
 		});
 		i = 0;
@@ -49,32 +49,31 @@ document.addEventListener('DOMContentLoaded', (event) => {
 		});
 	}
 
-	// FUNCTION to set the question data in questionHolder section
+	/* Set the Question Data in QuestionHolder */
 	let setQuestionData = () => {
-		queryElement('#quizHolder p').innerHTML = questions[qCount].title;
-		queryElement('#quizHolder button:nth-of-type(1)').innerHTML = `1. ${questions[qCount].choices[0]}`;
-		queryElement('#quizHolder button:nth-of-type(2)').innerHTML = `2. ${questions[qCount].choices[1]}`;
-		queryElement('#quizHolder button:nth-of-type(3)').innerHTML = `3. ${questions[qCount].choices[2]}`;
-		queryElement('#quizHolder button:nth-of-type(4)').innerHTML = `4. ${questions[qCount].choices[3]}`;
+		queryElement('quizHolder p').innerHTML = questions[qCount].title;
+		queryElement('quizHolder button:nth-of-type(1)').innerHTML = `1. ${questions[qCount].choices[0]}`;
+		queryElement('quizHolder button:nth-of-type(2)').innerHTML = `2. ${questions[qCount].choices[1]}`;
+		queryElement('quizHolder button:nth-of-type(3)').innerHTML = `3. ${questions[qCount].choices[2]}`;
+		queryElement('quizHolder button:nth-of-type(4)').innerHTML = `4. ${questions[qCount].choices[3]}`;
 	}
 
-	//FUNCTION changes the question and has a parameter to control the text which is provided weather it is correct or wrong
+	/* Controls the Text: Correct or Wrong */
 	let quizUpdate = (answerCopy) => {
-		queryElement('#scoreIndicator p').innerHTML = answerCopy;
-		queryElement('#scoreIndicator').classList.remove('invisible', scoreIndicator());
+		queryElement('scoreIndicator p').innerHTML = answerCopy;
+		queryElement('scoreIndicator').classList.remove('invisible', scoreIndicator());
 		Array.from(answers).forEach(answer =>
 		{
 			answer.classList.add('disable');
 		});
 
-		// If all the questions have been answered exist the quiz section
-		setTimeout(() => {
+		/* Questions Have Been Answered */
+        		setTimeout(() => {
 			if (qCount === questions.length) {
-				onlyDisplaySection("#finish");
+				onlyDisplaySection("finish");
 				time = 0;
-				queryElement('#time').innerHTML = time;
+				queryElement('time').innerHTML = time;
 			} else {
-				// Updates copy in questions with the net array's question text.
 				setQuestionData();
 				// Removed disabled status.
 				Array.from(answers).forEach(answer => {
@@ -84,50 +83,49 @@ document.addEventListener('DOMContentLoaded', (event) => {
 		}, 1000);
 	}
 
-	// FUNCTION handles time related events for the quiz
+	/* Handles Time Related */
 	let myTimer = () => {
 		if (time > 0) {
 			time = time - 1;
-			queryElement('#time').innerHTML = time;
+			queryElement('time').innerHTML = time;
 		} else {
 			clearInterval(clock);
-			queryElement('#score').innerHTML = score;
-			onlyDisplaySection("#finish");
+			queryElement('score').innerHTML = score;
+			onlyDisplaySection("finish");
 		}
 	}
 
-	//////////////////// QUIZ INITILIZATION AND TIMER ////////////////////
+	/* Initilization and Timer */
 
-	// On intro button click start time and starts giving questions
-	let clock;
-	queryElement("#intro button").addEventListener("click", (e) => {
-		//call above function to set Initial data in questionHolder section
+	/* On Intro Button Click Start Time */
+	let clock = () => {
+	{
 		setQuestionData();
-		onlyDisplaySection("#quizHolder");
+		onlyDisplaySection('quizHolder');
 		clock = setInterval(myTimer, 1000);
-	});
+        queryElement('intro button').EventListner.add('click'); 
+	};
+};
 
-	// Clears timeout if next question is answered before current timeout is reached or if form element has a requirement not met.
-
-	let scoreIndicator = () => {
+	/* Clears Timeout */
+    let scoreIndicator = () => {
 		clearTimeout(timeset);
 		timeset = setTimeout(() => {
-		    queryElement('#scoreIndicator').classList.add('invisible');
+		    queryElement('scoreIndicator').EventListner.add('invisible');
 		}, 1000);
 	}
 
-	//////////////////// QUIZ CONTROLS ////////////////////
+	/* Quiz Controls */
 
-	// Create an array of selected divs so I can refer to them with the this keyword and replace their values to then check against the answer property for all questions.
 	Array.from(answers).forEach(check => {
 		check.addEventListener('click', function (event) {
-			// Handles events if a question is answered correctly
+			/* Handles if a Question is Answered Correctly */
 			if (this.innerHTML.substring(3, this.length) === questions[qCount].answer) {
 				score = score + 1;
 				qCount = qCount + 1;
 				quizUpdate("Correct");
 			}else{
-				// Handles events if a question is answered incorrectly.
+				/* Handles if a Question is Answered Incorrectly. */
 				time = time - 10;
 				qCount = qCount + 1;
 				quizUpdate("Wrong");
@@ -135,69 +133,70 @@ document.addEventListener('DOMContentLoaded', (event) => {
 		});
 	});
 
-	//////////////////// SCORE SUBMISSION ////////////////////
+	/* Score */
 
-	// Displays error message if initials given do not meet requirements
+	/* Error Message for Initials */
 	let errorIndicator = () => {
 		clearTimeout(timeset);
 		timeset = setTimeout(() => {
-			queryElement('#errorIndicator').classList.add('invisible');
+			queryElement('errorIndicator').classList.add('invisible');
 		}, 3000);
 	}
 
-	// Error handling for submitting high scores
-	queryElement("#records button").addEventListener("click", () => {
-		let initialsRecord = queryElement('#initials').value;
+	/* Error for Submitting High Scores */
+	queryElement('records button').addEventListener('click', () => {
+		let initialsRecord = queryElement('initials').value;
 		if (initialsRecord === ''){
-			queryElement('#errorIndicator p').innerHTML = "You need at least 1 character";
-			queryElement('#errorIndicator').classList.remove('invisible', errorIndicator());
+			queryElement('errorIndicator p').innerHTML = "You need at least 1 character";
+			queryElement('errorIndicator').classList.remove('invisible', errorIndicator());
 		} else if (initialsRecord.match(/[[A-Za-z]/) === null) {
-			queryElement('#errorIndicator p').innerHTML = "Only letters for initials allowed.";
-			queryElement('#errorIndicator').classList.remove('invisible', errorIndicator());
+			queryElement('errorIndicator p').innerHTML = "Only letters for initials allowed.";
+			queryElement('errorIndicator').classList.remove('invisible', errorIndicator());
 		} else if (initialsRecord.length > 5) {
-			queryElement('#errorIndicator p').innerHTML = "Maximum of 5 characters allowed.";
-			queryElement('#errorIndicator').classList.remove('invisible', errorIndicator());
+			queryElement('errorIndicator p').innerHTML = "Maximum of 5 characters allowed.";
+			queryElement('errorIndicator').classList.remove('invisible', errorIndicator());
 		} else {
-			//Sends value to current array for use now.
+			
+            /* Sends Value to Current Array */
 			recordsArray.push({
 				"initialRecord": initialsRecord,
 				"score": score
 			});
-			//Sends value to local storage for later use.
+			/* Sends Value to Local Storage */
 			localStorage.setItem('recordsArray', JSON.stringify(recordsArray));
-			queryElement('#highScores div').innerHTML = '';
-			onlyDisplaySection("#highScores");
+			queryElement('highScores div').innerHTML = '';
+			onlyDisplaySection("highScores");
 			recordsHtmlReset();
-			queryElement("#initials").value = '';
+			queryElement("initials").value = '';
 		}
 	});
 
-	//////////////////// HIGH SCORE CONTROL ARRAY/LOCAL STORAGE ////////////////////
+	/* High Score Control, Local, Array Storage */
 
-	// Clears highscores from the html, array and localstorage
-	queryElement("#clearScores").addEventListener("click", () => {
+    /* Array and Local Storage */
+	queryElement("clearScores").addEventListener("click", () => {
 		recordsArray = [];
-		queryElement('#highScores div').innerHTML = "";
+		queryElement('highScores div').innerHTML = "";
 		localStorage.removeItem('recordsArray');
 	});
 
-	// Resets all quiz settings to the default to replay the quiz
-	queryElement("#reset").addEventListener("click", () => {
+    /* Reset Quiz Setting */
+	queryElement("reset").addEventListener("click", () => {
 		time = initialTime;
 		score = 0;
 		qCount = 0;
-		onlyDisplaySection("#intro");
+		onlyDisplaySection("intro");
 	});
 
-	// If a player pushes the view high scores button in the html view then this abdandons all quiz progress and lets them view the high scores.
-	queryElement("#scores").addEventListener("click", (e) => {
+	
+	queryElement("scores").addEventListener("click", (e) => {
 		e.preventDefault();
 		clearInterval(clock);
-		queryElement('#time').innerHTML = 0;
+		queryElement('time').innerHTML = 0;
 		time = initialTime;
 		score = 0;
 		qCount = 0;
-		onlyDisplaySection("#highScores");
+		onlyDisplaySection("highScores");
 		recordsHtmlReset();
 	});
 
