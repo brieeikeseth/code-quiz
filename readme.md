@@ -29,9 +29,13 @@ THEN I can save my initials and score
 
 -HTML page:
 -Summary of correct answers
+
 -Input for score recoring 
+
 -Submit button
+
 -Final score that's calculated using time remaining
+
 -Clear button resets the page
 
 -An HTML page that features questions, and multiple choice answers
